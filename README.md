@@ -49,9 +49,9 @@ fence_security/
     python manage.py runserver
 
     Access the web interface at http://127.0.0.1:8000/
-   ```
-    ## 🤝 Contributing:
+   
+    🤝 Contributing:
         Contributions are welcome! Please fork the repo and submit a pull request.
-    ## 📜 License:
+    📜 License:
         This project is licensed under the MIT License.
     
