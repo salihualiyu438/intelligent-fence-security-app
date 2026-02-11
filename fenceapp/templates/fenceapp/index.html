@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fence Security System</title>
+    <link rel="stylesheet" href="{% static 'fenceapp/css/index.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚨 Fence Security Monitoring System</h1>
+
+    <div class="video-container">
+        <img src="{% url 'video_feed' %}" class="video-frame">
+        <div id="overlay" class="overlay hidden">INTRUSION DETECTED</div>
+    </div>
+
+    <div id="status" class="status safe">
+        <span class="status-dot"></span>
+        <span class="status-text">Monitoring Active</span>
+    </div>
+
+    <div class="log-panel">
+        <h3>Alert Log</h3>
+        <ul id="log-list"></ul>
+    </div>
+
+</div>
+
+<script>
+let lastState = false;
+
+setInterval(() => {
+    fetch("{% url 'intrusion_status' %}")
+        .then(res => res.json())
+        .then(data => {
+            const status = document.getElementById("status");
+            const overlay = document.getElementById("overlay");
+            const log = document.getElementById("log-list");
+
+            if (data.intrusion && !lastState) {
+                status.className = "status danger";
+                status.querySelector(".status-text").innerText = "INTRUSION DETECTED";
+                overlay.classList.remove("hidden");
+
+                const time = new Date().toLocaleTimeString();
+                const li = document.createElement("li");
+                li.textContent = `🚨 Intrusion detected at ${time}`;
+                log.prepend(li);
+            }
+
+            if (!data.intrusion) {
+                status.className = "status safe";
+                status.querySelector(".status-text").innerText = "Monitoring Active";
+                overlay.classList.add("hidden");
+            }
+
+            lastState = data.intrusion;
+        });
+}, 1000);
+</script>
+
+</body>
+</html>
