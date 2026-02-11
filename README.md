@@ -42,16 +42,16 @@ fence_security/
 2. Install dependencies:
     pip install -r requirements.txt
 
-3. Run migrations:
+4. Run migrations:
     python manage.py migrate
 
-4. Start the server
+5. Start the server
     python manage.py runserver
 
     Access the web interface at http://127.0.0.1:8000/
-
+   ```
     🤝 Contributing:
         Contributions are welcome! Please fork the repo and submit a pull request.
     📜 License:
         This project is licensed under the MIT License.
-    
+    ```
